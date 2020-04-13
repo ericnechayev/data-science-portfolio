@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from biased_random_forest import random_forest_model, random_forest_preds, biased_random_forest_model
+from biased_random_forest import random_forest_model, random_forest_predictions, biased_random_forest_model
 from metric_functions import calculate_precision, calculate_recall, calculate_auprc, calculate_auroc, create_prc_curve, create_roc_curve
 
 
@@ -32,7 +32,7 @@ def cross_validation(train_df, model_type='braf', K=10, p=0.5, s=10, subsample=0
             model = biased_random_forest_model(train_set, K=K, p=p, s=s, n_bootstrap=int(subsample * len(train_set)),
                                                    n_features=int(feature_fraction * train_df.shape[1]), dt_max_depth=max_depth)
         # Predicting the Validation Fold
-        predictions, probabilities = random_forest_preds(val_set, model)
+        predictions, probabilities = random_forest_predictions(val_set, model)
 
         aurocs.append(calculate_auroc(val_set['label'].values, probabilities.iloc[:, 1].values))
         auprcs.append(calculate_auprc(val_set['label'].values, probabilities.iloc[:, 1].values))
@@ -64,7 +64,7 @@ def predict_test_set(train_df, test_df, model_type='BRAF', K=10, p=0.5, s=10, su
                                                n_features=train_df.shape[1], dt_max_depth=max_depth)
 
     # Predicting the Test Set
-    predictions, probabilities = random_forest_preds(test_df, model)
+    predictions, probabilities = random_forest_predictions(test_df, model)
 
     precision = calculate_precision(predictions.values, test_df.label.values)
     recall = calculate_recall(predictions.values, test_df.label.values)

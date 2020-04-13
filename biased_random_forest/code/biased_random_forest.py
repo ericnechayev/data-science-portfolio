@@ -69,11 +69,11 @@ def make_critical_set(train_df, K):
 
 def biased_random_forest_model(train_df, K, p, s, n_bootstrap, n_features, dt_max_depth):
     # fit a regular random forest
-    regular_rf = random_forest_algorithm(train_df, s - int(s * p), n_bootstrap, n_features, dt_max_depth)
+    regular_rf = random_forest_model(train_df, s - int(s * p), n_bootstrap, n_features, dt_max_depth)
 
     # fit a difficult-areas random forest
     critical_set = make_critical_set(train_df, K)
-    critical_rf = random_forest_algorithm(critical_set, int(s * p), n_bootstrap, n_features, dt_max_depth)
+    critical_rf = random_forest_model(critical_set, int(s * p), n_bootstrap, n_features, dt_max_depth)
 
     # combine the two forests
     return regular_rf + critical_rf
