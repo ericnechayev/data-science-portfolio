@@ -9,4 +9,4 @@ https://www.kaggle.com/ericnechayev/competitions
 https://www.kaggle.com/c/ieee-fraud-detection/leaderboard
 
 ## 3. Biased Random Forest
-Under Construction
+https://github.com/ericnechayev/data-science-portfolio/tree/master/biased_random_forest
